@@ -1,0 +1,13 @@
+# Python environment
+venv/
+__pycache__/
+*.pyc
+
+# Sensitive data (Crucial!)
+.env
+
+# System files
+.DS_Stor
+
+.ipynb_checkpoints
+
