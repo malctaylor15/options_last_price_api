@@ -1,0 +1,29 @@
+[Unit]
+Description=FastAPI Financial Data API
+After=network.target
+
+StartLimitIntervalSec=300
+StartLimitBurst=5
+
+[Service]
+# The user and group that will run the service
+User=malcolm
+Group=malcolm
+
+# The directory where your code lives
+WorkingDirectory=/home/malcolm/options_last_price_api
+
+# Path to the python executable and uvicorn command
+# NOTE: If you are using a virtual environment, change /usr/bin/python3 
+# to /home/malcolm/options_last_price_api/venv/bin/python3
+ExecStart=/home/malcolm/main/bin/python -m uvicorn api_main:app --host 0.0.0.0 --port 9000
+
+# Automatically restart the service if it crashes
+Restart=always
+RestartSec=5
+
+# Loads environment variables from your .env file
+EnvironmentFile=/home/malcolm/options_last_price_api/.env
+
+[Install]
+WantedBy=multi-user.target
