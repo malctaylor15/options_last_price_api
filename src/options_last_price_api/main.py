@@ -1,22 +1,13 @@
 import re
-import os
 from datetime import datetime
 from typing import Optional
-from dotenv import load_dotenv
 
-from fastapi import FastAPI, Depends, HTTPException, status, Security
-from fastapi.security import APIKeyHeader
+from fastapi import FastAPI, Depends, HTTPException
 from pydantic import BaseModel
 import yfinance as yf
 import pandas as pd
 
-# Load environment variables
-load_dotenv()
-
-# --- Configuration & Authentication Setup ---
-API_KEY = os.getenv("SECRET_API_KEY", "tk1") 
-API_KEY_NAME = "X-API-Key"
-api_key_header = APIKeyHeader(name=API_KEY_NAME, auto_error=True)
+from options_last_price_api.security import get_api_key
 
 app = FastAPI(
     title="Financial Data API",
@@ -36,16 +27,6 @@ class EarningsDateResponse(BaseModel):
     earnings_date: Optional[str]
     days_to_earnings: Optional[int]
     message: str
-
-# --- Authentication Dependency ---
-
-def get_api_key(api_key: str = Security(api_key_header)):
-    if api_key == API_KEY:
-        return api_key
-    raise HTTPException(
-        status_code=status.HTTP_401_UNAUTHORIZED,
-        detail="Invalid API Key. Access denied.",
-    )
 
 # --- Utility Functions ---
 

@@ -7,7 +7,6 @@ __pycache__/
 .env
 
 # System files
-.DS_Stor
+.DS_Store
 
-.ipynb_checkpoints
-
+.ipynb_checkpoints/

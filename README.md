@@ -1,39 +1,58 @@
-Option Price function for Google sheets
+# Options Last Price API
 
-Made a function to get option prices from yahoo and pull them into google sheets 
+FastAPI service that returns option prices and upcoming earnings dates using Yahoo Finance data.
 
-Some steps... 
+## What this repo contains
 
-1. Install dependencies like yfinance and uvicorn 
-In the terminal run 
+* **API service**: FastAPI app with endpoints for option prices and earnings dates.
+* **Security**: API key authentication using the system keyring (no plaintext secrets).
+* **Integration helpers**: Google Sheets Apps Script for calling the API.
+* **Deployment example**: A systemd unit template for running the service.
+* **Notebooks**: Local experimentation and testing.
 
+## Quick start
+
+```bash
 pip install -r requirements.txt
+python scripts/set_api_key.py
+python -m uvicorn options_last_price_api.main:app --app-dir src --reload --host 127.0.0.1 --port 9000
+```
 
-2. Test locally in the run_server notebook 
-That will run it in a notebook. To shut it off, you should restart the whole notebook 
-If you're deploying locally, remember to change the HOST TO 127.0.0.1 if in production, we can use 0.0.0.0
+Then visit `http://127.0.0.1:9000/docs` or call the endpoints with your API key:
 
-3. Play around with keys and different options...  127.0.0.1:9000/docs for the UI version 
-Remember to double check it on a site like https://finance.yahoo.com/quote/TSLA/options/?date=1766102400
+```bash
+curl -H "X-API-Key: <your-key>" \
+  "http://127.0.0.1:9000/option-price/AAPL251219C00200000"
+```
 
-4. In the google sheet, you'll need to go to extensions, app script and copy the google_sheets_script.gs to the app script folder.    
+## Repository map
 
+```
+archive/        Retired source files kept for reference
+deploy/         Example service definitions
+docs/           Documentation (file map, key management)
+integrations/   External integrations (Google Sheets script)
+notebooks/      Local experimentation notebooks
+scripts/        Local CLI utilities
+src/            Application source code
+```
 
-We can check some of the endpoints at  
-http://dev.malctaylor15.com:9000/docs 
+## API key storage
 
+The API key is stored in your system keyring (no plaintext files). Use:
 
+```bash
+python scripts/set_api_key.py
+```
 
-## Advanced Management
+If you need a temporary override, set the environment variable `OPTIONS_API_KEY` in your shell or process manager.
 
-### Editing the Service
-Because we used a **symbolic link**, you can edit `fastapi_finance.service` in this directory directly. After saving changes, run:
-`sudo systemctl daemon-reload && sudo systemctl restart fastapi_finance`
+## Documentation
 
-### Fail-Safe (Anti-Crash Loop)
-The service is configured to give up if it crashes 5 times within 5 minutes. This prevents the API from spamming the system if there is a major code error (like a missing API key).
+* `docs/file-map.md` explains where to find key files.
+* `docs/key-management.md` explains API key storage and rotation.
 
-### Resetting a "Failed" State
-If the service hits the "Burst Limit" and stops trying to restart, it will enter a `failed` state. To clear this and try again:
-`sudo systemctl reset-failed fastapi_finance`
-`sudo systemctl start fastapi_finance`
+## Deployment notes
+
+An example systemd unit lives at `deploy/options_last_price.service`. It assumes the app code lives in
+`/home/malcolm/options_last_price_api/src`. Update paths as needed.

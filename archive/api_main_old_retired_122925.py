@@ -1,7 +1,6 @@
 import re
 import os
 from datetime import datetime
-from dotenv import load_dotenv
 
 from fastapi import FastAPI, Depends, HTTPException, status, Security
 from fastapi.security import APIKeyHeader
@@ -9,14 +8,10 @@ from pydantic import BaseModel
 import yfinance as yf
 import pandas as pd
 
-# Load environment variables (like the API key) from a .env file
-# NOTE: In a real cloud environment, use dedicated secrets management.
-load_dotenv()
-
 # --- Configuration & Authentication Setup ---
 # The secret API key is read from the environment variable 'SECRET_API_KEY'
-# CHANGE THIS TO A REAL, LONG, RANDOM KEY in your .env file or cloud environment
-API_KEY = os.getenv("SECRET_API_KEY", "tk1") 
+# Avoid hardcoding secrets in the source code.
+API_KEY = os.getenv("SECRET_API_KEY")
 
 # Define the header where the client must send the API key (e.g., X-API-Key: YOUR_KEY)
 API_KEY_NAME = "X-API-Key"

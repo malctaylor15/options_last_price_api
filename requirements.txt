@@ -2,4 +2,5 @@ fastapi
 uvicorn
 yfinance
 pydantic
-python-dotenv # Recommended for managing the API key securely
+pandas
+keyring
