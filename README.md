@@ -51,6 +51,7 @@ If you need a temporary override, set the environment variable `OPTIONS_API_KEY`
 
 * `docs/file-map.md` explains where to find key files.
 * `docs/key-management.md` explains API key storage and rotation.
+* `docs/system-service.md` shows how to run the API with systemd, check service status, and test with curl/Python.
 
 ## Deployment notes
 
