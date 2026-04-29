@@ -15,14 +15,14 @@ FastAPI service that returns option prices and upcoming earnings dates using Yah
 ```bash
 pip install -r requirements.txt
 python scripts/set_api_key.py
-python -m uvicorn options_last_price_api.main:app --app-dir src --reload --host 127.0.0.1 --port 9000
+python -m uvicorn options_last_price_api.main:app --app-dir src --reload --host 127.0.0.1 --port 2524
 ```
 
-Then visit `http://127.0.0.1:9000/docs` or call the endpoints with your API key:
+Then visit `http://127.0.0.1:2524/docs` or call the endpoints with your API key:
 
 ```bash
 curl -H "X-API-Key: <your-key>" \
-  "http://127.0.0.1:9000/option-price/AAPL251219C00200000"
+  "http://127.0.0.1:2524/option-price/AAPL251219C00200000"
 ```
 
 ## Repository map

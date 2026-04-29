@@ -64,7 +64,7 @@ Replace `YOUR_API_KEY` and adjust host/port if your unit binds differently.
 
 ```bash
 curl -H "X-API-Key: YOUR_API_KEY" \
-  "http://127.0.0.1:9000/option-price/AAPL251219C00200000"
+  "http://127.0.0.1:2524/option-price/AAPL251219C00200000"
 ```
 
 ### Test with Python
@@ -72,7 +72,7 @@ curl -H "X-API-Key: YOUR_API_KEY" \
 ```python
 import requests
 
-url = "http://127.0.0.1:9000/option-price/AAPL251219C00200000"
+url = "http://127.0.0.1:2524/option-price/AAPL251219C00200000"
 headers = {"X-API-Key": "YOUR_API_KEY"}
 
 resp = requests.get(url, headers=headers, timeout=15)
