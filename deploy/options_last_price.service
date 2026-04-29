@@ -17,7 +17,7 @@ WorkingDirectory=/home/malcolm/options_last_price_api
 # Path to the python executable and uvicorn command
 # NOTE: If you are using a virtual environment, change /usr/bin/python3 
 # to /home/malcolm/options_last_price_api/venv/bin/python3
-ExecStart=/home/malcolm/main/bin/python -m uvicorn options_last_price_api.main:app --host 0.0.0.0 --port 9000 --app-dir /home/malcolm/options_last_price_api/src
+ExecStart=/home/malcolm/main/bin/python -m uvicorn options_last_price_api.main:app --host 0.0.0.0 --port 2524 --app-dir /home/malcolm/options_last_price_api/src
 
 # Automatically restart the service if it crashes
 Restart=always

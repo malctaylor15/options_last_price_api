@@ -8,7 +8,7 @@
 function FETCH_OPTION_DATA(optionSymbol) {
   
   apiKey = 'tk1'
-  apiUrlBase = 'http://dev.malctaylor15.com:9000'
+  apiUrlBase = 'http://dev.malctaylor15.com:2524'
   if (!optionSymbol || !apiUrlBase || !apiKey) {
     return [["ERROR", "All parameters must be provided"]];
   }
@@ -71,7 +71,7 @@ function GET_LAST_PRICE(optionSymbol) {
   
   // Use the same hardcoded credentials as FETCH_OPTION_DATA
   apiKey = 'tk1'
-  apiUrlBase = 'http://dev.malctaylor15.com:9000'
+  apiUrlBase = 'http://dev.malctaylor15.com:2524'
   
   if (!optionSymbol || !apiUrlBase || !apiKey) {
     return "ERROR: Missing symbol, API base URL, or API key.";
